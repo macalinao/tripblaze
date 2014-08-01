@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tripmakerApp')
-  .config(function ($stateProvider) {
+  .config(function($stateProvider) {
     $stateProvider
       .state('create', {
         url: '/create',
