@@ -42,6 +42,7 @@ app.get('/pois/:loc', function(req, res) {
       request.get('http://www.tripomatic.com/locations-service/best-pois-in-area')
         .query(params).end(function(err, data) {
           res.json({
+            loc: loc,
             pois: data.body
           });
         });

@@ -9,11 +9,13 @@ angular.module('tripmakerApp')
         latitude: 45,
         longitude: -73
       },
-      zoom: 8
+      zoom: 10
     };
 
     $scope.pois = [];
     $http.get('/pois/Paris').then(function(data) {
       $scope.pois = data.data.pois;
+      $scope.map.center.latitude = data.data.loc.lat;
+      $scope.map.center.longitude = data.data.loc.lng;
     });
   });
