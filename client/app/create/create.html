@@ -12,9 +12,11 @@
         </div>
       </form>
       <div id="poiSelect">
-        <div ng-repeat="poi in pois | filter:findText">
-          {{poi.name}}
-          <rating ng-model="poi.rating" readonly="true">{{poi.rating / 2}}</rating>
+        <div class="poi-sidebar" ng-repeat="poi in pois | filter:findText">
+          <h3>{{poi.name}}</h3>
+          <img ng-src="{{poi.img}}">
+            <small><rating ng-model="poi.rating" readonly="true"></rating></small>
+          {{poi.perex}}
         </div>
       </div>
     </div>
