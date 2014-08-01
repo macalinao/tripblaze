@@ -27,7 +27,8 @@ require('./config/express')(app);
 var foursquare = require('node-foursquare')(config.foursquare);
 app.get('/4sq/:near', function(req, res) {
   foursquare.Venues.explore(null, null, req.params.near, {
-    limit: 50
+    limit: 50,
+    section: 'topPicks'
   }, null, function(err, data) {
     res.json(data);
   });
