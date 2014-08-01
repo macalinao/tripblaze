@@ -36,7 +36,7 @@ app.get('/pois/:loc', function(req, res) {
       var params = {
         southWestLatLng: (loc.lat - 0.25) + ',' + (loc.lng - 0.25),
         northEastLatLng: (loc.lat + 0.25) + ',' + (loc.lng + 0.25),
-        limit: 150
+        limit: 40
       };
 
       request.get('http://www.tripomatic.com/locations-service/best-pois-in-area')
