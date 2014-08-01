@@ -15,16 +15,31 @@ var config = require('./config/environment');
 mongoose.connect(config.mongo.uri, config.mongo.options);
 
 // Populate DB with sample data
-if(config.seedDB) { require('./config/seed'); }
+if (config.seedDB) {
+  require('./config/seed');
+}
 
 // Setup server
 var app = express();
 var server = require('http').createServer(app);
 require('./config/express')(app);
-require('./routes')(app);
+
+var foursquare = require('node-foursquare')(config.foursquare);
+app.get('/4sq/:near', function(req, res) {
+  foursquare.Venues.explore(null, null, req.params.near, {
+    limit: 50
+  }, null, function(err, data) {
+    res.json(data);
+  });
+});
+
+app.route('/*')
+  .get(function(req, res) {
+    res.sendfile(app.get('appPath') + '/index.html');
+  });
 
 // Start server
-server.listen(config.port, config.ip, function () {
+server.listen(config.port, config.ip, function() {
   console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
 });
 

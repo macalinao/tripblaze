@@ -16,7 +16,8 @@
     "ejs": "~0.8.4",
     "mongoose": "~3.8.8",
     "composable-middleware": "^0.3.0",
-    "connect-mongo": "^0.4.1"
+    "connect-mongo": "^0.4.1",
+    "node-foursquare": "^0.2.1"
   },
   "devDependencies": {
     "grunt": "~0.4.4",
