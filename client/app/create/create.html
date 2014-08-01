@@ -1,8 +1,8 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-4">
+  <div id="holder" class="row">
+    <div class="col-md-3" id="sidebar">
       <form class="form-inline" role="form">
         <div class="input-group">
           <div class="input-group-addon">
@@ -11,15 +11,15 @@
           <input class="form-control" placeholder="Find attractions, restaurants, and more" />
         </div>
       </form>
+      <div id="poiSelect">
+        <div ng-repeat="poi in pois">
+          {{poi.name}}
+        </div>
+      </div>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-9">
       <google-map center="map.center" zoom="map.zoom">
       </google-map>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      asdf
     </div>
   </div>
 </div>

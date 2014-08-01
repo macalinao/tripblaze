@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tripmakerApp')
-  .controller('CreateCtrl', function($scope) {
+  .controller('CreateCtrl', function($scope, $http) {
     $scope.message = 'Hello';
 
     $scope.map = {
@@ -11,4 +11,9 @@ angular.module('tripmakerApp')
       },
       zoom: 8
     };
+
+    $scope.pois = [];
+    $http.get('/pois/Paris').then(function(data) {
+      $scope.pois = data.data.pois;
+    });
   });
