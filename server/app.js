@@ -24,14 +24,26 @@ var app = express();
 var server = require('http').createServer(app);
 require('./config/express')(app);
 
-var foursquare = require('node-foursquare')(config.foursquare);
-app.get('/4sq/:near', function(req, res) {
-  foursquare.Venues.explore(null, null, req.params.near, {
-    limit: 50,
-    section: 'topPicks'
-  }, null, function(err, data) {
-    res.json(data);
-  });
+var request = require('superagent');
+
+app.get('/pois/:loc', function(req, res) {
+  request.get('https://maps.googleapis.com/maps/api/geocode/json')
+    .query({
+      key: config.googleKey,
+      address: req.params.loc
+    }).end(function(err, gdata) {
+      var loc = gdata.body.results[0].geometry.location;
+      var params = {
+        southWestLatLng: (loc.lat - 0.25) + ',' + (loc.lng - 0.25),
+        northEastLatLng: (loc.lat + 0.25) + ',' + (loc.lng + 0.25),
+        limit: 150
+      };
+
+      request.get('http://www.tripomatic.com/locations-service/best-pois-in-area')
+        .query(params).end(function(err, data) {
+          res.json(data.body);
+        });
+    });
 });
 
 app.route('/*')

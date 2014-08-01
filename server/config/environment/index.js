@@ -41,13 +41,7 @@ var all = {
     }
   },
 
-  foursquare: {
-    secrets: {
-      clientId: 'GEN1QQFF0LVLMOQLMD3JZ4T0TPBYVCAHR5NX5W0YHNR45T3I',
-      clientSecret: 'VVGSNZPKLI0TVEVJKKJ1DDSH0AJVIXE43GROXUS4EDQRDGAZ',
-      redirectUrl: '/'
-    }
-  }
+  googleKey: 'AIzaSyC7IWvcHIgH9SBYIdokGniJTU7wGmcy73o'
 };
 
 // Export the config object based on the NODE_ENV
