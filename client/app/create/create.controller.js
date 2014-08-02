@@ -3,7 +3,8 @@
 angular.module('tripmakerApp')
   .controller('CreateCtrl', function($scope, $http) {
     $scope.settings = {
-      destination: 'philadelphia'
+      destination: 'philadelphia',
+      days: 5
     };
 
     $scope.map = {
@@ -15,29 +16,22 @@ angular.module('tripmakerApp')
       control: {}
     };
 
-    $scope.currentDay = 1;
     $scope.$watch('currentDay', function() {
       $scope.updateDistances();
     });
 
-    $scope.itineraries = {};
-    $scope.days = [1, 2, 3, 4, 5];
+    $scope.days = _.times($scope.settings.days, function(n) {
+      return {
+        id: n + 1,
+        pois: []
+      };
+    });
+    $scope.currentDay = $scope.days[0];
 
     $scope.pois = [];
 
-    $scope.getCurPois = function() {
-      var its = $scope.itineraries;
-      var cur = $scope.currentDay;
-
-      var curPois = its[cur];
-      if (!curPois) {
-        curPois = its[cur] = [];
-      }
-      return curPois;
-    };
-
     $scope.getLastPoi = function() {
-      var curPois = $scope.getCurPois();
+      var curPois = $scope.currentDay.pois;
       if (!curPois || curPois.length === 0) {
         _.forEach($scope.pois, function(poi) {
           poi.dist = -1;
@@ -75,7 +69,7 @@ angular.module('tripmakerApp')
       });
 
       var lowest = 1000;
-      _.forEach($scope.getCurPois(), function(poi) {
+      _.forEach($scope.currentDay.pois, function(poi) {
         if (poi === lastPoi) {
           return;
         }
@@ -105,8 +99,8 @@ angular.module('tripmakerApp')
     };
 
     $scope.addCurrentDay = function(data, event) {
-      var curPois = $scope.getCurPois();
-      if (curPois) {
+      var curPois = $scope.currentDay.pois;
+      if (curPois.length > 0) {
         var lastPoi = curPois[curPois.length - 1];
       }
       curPois.push(data);

@@ -27,11 +27,11 @@
     <div class="col-md-3">
       <strong>Select a day: </strong>
       <div class="btn-group">
-        <button ng-repeat="dayNum in days" class="btn btn-primary" type="button" ng-model="$parent.currentDay" btn-radio="dayNum">{{dayNum}}</button>
+        <button ng-repeat="day in days" class="btn btn-primary" type="button" ng-model="$parent.currentDay" btn-radio="day">{{day.id}}</button>
       </div>
-      <h2 id="day">Day {{currentDay}}</h2>
+      <h2 id="day">Day {{currentDay.id}}</h2>
       <div class="dayItinerary" ng-drop="true" ng-drop-success="addCurrentDay($data, $event)">
-        <div class="poi" ng-repeat="poi in itineraries[currentDay]">
+        <div class="poi" ng-repeat="poi in currentDay.pois">
           <h3>{{poi.name}}</h3>
           <img ng-src="{{poi.img}}" />
           <p>{{poi.perex}}</p>
