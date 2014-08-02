@@ -126,7 +126,10 @@ angular.module('tripmakerApp')
       var marker = new google.maps.Marker({
         position: latLng,
         map: map,
-        title: data.name
+        title: data.name,
+        icon: {
+          url: data.img
+        }
       });
       data.latLng = latLng;
 
