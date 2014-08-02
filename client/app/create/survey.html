@@ -8,11 +8,6 @@
     </div>
 
     <div class="form-group">
-      <label for="destination">Which country you want to travel to?</label>
-      <input name="destination" ng-model="result.destination" class="form-control" type="text" placeholder="Country" required>
-    </div>
-
-    <div class="form-group">
       <label for="type">What type of trips are you interested in?</label>
       <select ng-model="result.type" name="type" class="form-control">
         <option ng-repeat="theme in themes" value="{{theme}}">{{theme}}</option>
