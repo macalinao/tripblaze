@@ -53,7 +53,7 @@ angular.module('tripmakerApp')
 
     $scope.settings = {
       destination: 'philadelphia',
-      days: 9
+      days: 4
     };
 
     $scope.map = {
