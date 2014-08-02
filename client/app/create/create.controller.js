@@ -108,22 +108,21 @@ angular.module('tripmakerApp')
       };
 
       var map = $scope.map.control.getGMap();
-      var latLng = new google.maps.LatLng(data.map_pos_lat, data.map_pos_lng);
-      var marker = new google.maps.Marker({
-        position: latLng,
+      data.latLng = new google.maps.LatLng(data.map_pos_lat, data.map_pos_lng);
+      data.marker = new google.maps.Marker({
+        position: data.latLng,
         map: map,
         title: data.name,
         icon: {
           url: data.img
         }
       });
-      data.latLng = latLng;
 
       if (lastPoi) {
-        new google.maps.Polyline({
+        data.line = new google.maps.Polyline({
           path: [
             lastPoi.latLng,
-            latLng
+            data.latLng
           ],
           geodesic: true,
           strokeColor: '#ff0000',
