@@ -13,9 +13,27 @@ angular.module('tripmakerApp')
     };
 
     $scope.currentDay = 1;
+    $scope.itineraries = {};
     $scope.days = [1, 2, 3, 4, 5];
 
     $scope.pois = [];
+
+    $scope.addCurrentDay = function(data, event) {
+      var its = $scope.itineraries;
+      var cur = $scope.currentDay;
+
+      var curPois = its[cur];
+      if (!curPois) {
+        curPois = its[cur] = [];
+      }
+      curPois.push(data);
+
+      var poiIndex = $scope.pois.indexOf(data);
+      if (poiIndex > -1) {
+        $scope.pois.splice(poiIndex, 1);
+      }
+    };
+
     $http.get('/pois/Orlando').then(function(data) {
       $scope.pois = data.data.pois;
       $scope.map.center.latitude = data.data.loc.lat;

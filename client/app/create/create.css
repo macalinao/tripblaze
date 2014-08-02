@@ -9,15 +9,20 @@
   overflow-y: scroll;
 }
 
-.poi-sidebar {
+.poi {
   border-bottom: 1px solid #cccccc;
   margin: 10px;
   margin-bottom: 15px;
   padding-bottom: 10px;
 }
 
-.poi-sidebar > img {
+.poi > img {
   float: left;
   margin-right: 10px;
   margin-bottom: 10px;
+}
+
+.dayItinerary {
+  height: 600px;
+  overflow-y: scroll;
 }

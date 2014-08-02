@@ -6,7 +6,8 @@ angular.module('tripmakerApp', [
   'ngSanitize',
   'ui.router',
   'ui.bootstrap',
-  'google-maps'
+  'google-maps',
+  'ngDraggable'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $urlRouterProvider
