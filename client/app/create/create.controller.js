@@ -3,7 +3,7 @@
 angular.module('tripmakerApp')
   .controller('CreateCtrl', function($scope, $http) {
     $scope.settings = {
-      destination: 'Dallas'
+      destination: 'philadelphia'
     };
 
     $scope.map = {
@@ -112,4 +112,11 @@ angular.module('tripmakerApp')
       $scope.map.center.longitude = data.data.loc.lng;
       $scope.updateDistances();
     });
+  })
+  .filter('sortAlgorithm', function() {
+    return function(pois) {
+      return _.sortBy(pois, function(poi) {
+        return -1 * poi.rating * Math.pow(0.3, poi.dist / 10);
+      });
+    };
   });
