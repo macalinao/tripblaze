@@ -60,7 +60,11 @@ var sabre = new SabreAPI({
 
 app.get('/sabre_cats', function(req, res) {
   sabre.get('/v1/shop/themes', {}, function(err, data) {
-    data = JSON.parse(data);
+    try {
+      data = JSON.parse(data);
+    } catch (e) {
+      return;
+    }
     var ret = [];
     _.forEach(data.Themes, function(theme) {
       ret.push(theme.Theme);
@@ -78,7 +82,11 @@ app.get('/sabre/:from/:theme', function(req, res) {
     departuredate: req.query.departureDate,
     returndate: req.query.returnDate
   }, function(err, data) {
-    var locs = JSON.parse(data).FareInfo;
+    try {
+      var locs = JSON.parse(data).FareInfo;
+    } catch (e) {
+      return;
+    }
     async.map(locs, function(loc, done) {
       request('https://airport.api.aero/airport/match/' + loc.DestinationLocation)
         .query({

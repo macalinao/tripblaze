@@ -31,8 +31,21 @@ angular.module('tripmakerApp')
             }
           }
         });
-        flightSelect.result.then(function(res) {
-          console.log(res);
+        flightSelect.result.then(function(rez) {
+          $scope.settings = {
+            destination: rez.dest,
+            days: (function() {
+              var one = moment(res.departureDate);
+              var two = moment(res.returnDate);
+
+              var millisecondsPerDay = 1000 * 60 * 60 * 24;
+              var millisBetween = two - one;
+              var days = millisBetween / millisecondsPerDay;
+
+              // Round down.
+              return Math.floor(days);
+            })()
+          };
         });
       });
     });
@@ -44,11 +57,11 @@ angular.module('tripmakerApp')
 
     $scope.map = {
       center: {
-        latitude: 45,
-        longitude: -73
+        latitude: 0,
+        longitude: 0
       },
-      zoom: 15,
-      control: {}
+      control: {},
+      zoom: 15
     };
 
     $scope.$watch('currentDay', function(current, old) {
@@ -69,6 +82,9 @@ angular.module('tripmakerApp')
           poi.marker.setMap(map);
         }
       });
+      if (!current.pois) {
+        return;
+      }
       if (current.pois.length > 0) {
         $scope.map.center = {
           latitude: current.pois[0].map_pos_lat,
@@ -78,13 +94,8 @@ angular.module('tripmakerApp')
       $scope.updateDistances();
     });
 
-    $scope.days = _.times($scope.settings.days, function(n) {
-      return {
-        id: n + 1,
-        pois: []
-      };
-    });
-    $scope.currentDay = $scope.days[0];
+    $scope.days = [];
+    $scope.currentDay = {};
 
     $scope.pois = [];
 
@@ -199,11 +210,22 @@ angular.module('tripmakerApp')
       $scope.updateDistances();
     };
 
-    $http.get('/pois/' + $scope.settings.destination).then(function(data) {
-      $scope.pois = data.data.pois;
-      $scope.map.center.latitude = data.data.loc.lat;
-      $scope.map.center.longitude = data.data.loc.lng;
-      $scope.updateDistances();
+    $scope.$watch('settings', function() {
+      $scope.days = _.times($scope.settings.days, function(n) {
+        return {
+          id: n + 1,
+          pois: []
+        };
+      });
+
+      $scope.currentDay = $scope.days[0];
+
+      $http.get('/pois/' + $scope.settings.destination).then(function(data) {
+        $scope.pois = data.data.pois;
+        $scope.map.center.latitude = data.data.loc.lat;
+        $scope.map.center.longitude = data.data.loc.lng;
+        $scope.updateDistances();
+      });
     });
   })
   .filter('sortAlgorithm', function() {
