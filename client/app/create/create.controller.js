@@ -2,7 +2,9 @@
 
 angular.module('tripmakerApp')
   .controller('CreateCtrl', function($scope, $http) {
-    $scope.message = 'Hello';
+    $scope.settings = {
+      destination: 'Dallas'
+    };
 
     $scope.map = {
       center: {
@@ -34,7 +36,7 @@ angular.module('tripmakerApp')
       }
     };
 
-    $http.get('/pois/New York').then(function(data) {
+    $http.get('/pois/' + $scope.settings.destination).then(function(data) {
       $scope.pois = data.data.pois;
       $scope.map.center.latitude = data.data.loc.lat;
       $scope.map.center.longitude = data.data.loc.lng;
