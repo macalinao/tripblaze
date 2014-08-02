@@ -12,10 +12,11 @@
         </div>
       </form>
       <div id="poiSelect">
-        <div class="poi" ng-drag="true" ng-drag-data="poi" ng-repeat="poi in pois | filter:findText">
+        <div class="poi" ng-drag="true" ng-drag-data="poi" ng-repeat="poi in pois | filter:findText | orderBy:'dist'">
           <h3>{{poi.name}}</h3>
           <img ng-src="{{poi.img}}" />
           <p>{{poi.perex}}</p>
+          <p ng-if="poi.dist > 0">{{poi.dist}}</p>
         </div>
       </div>
     </div>
