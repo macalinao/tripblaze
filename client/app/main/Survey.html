@@ -1,0 +1,59 @@
+<DOCTYPE html>
+	<html>
+	<head>
+<head>
+	<title>ModalView &amp; CSS3</title>
+	<link rel="stylesheet" type="text/css" href="SurveyDesign.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<style type="text/css">
+  ul {list-style: none;padding: 0px;margin: 0px;}
+  ul li {display: block;position: relative;float: left;border:1px solid #000}
+  li ul {display: none;}
+  ul li a {display: block;background: #000;padding: 5px 10px 5px 10px;text-decoration: none;
+           white-space: nowrap;color: #fff;}
+  ul li a:hover {background: #f00;}
+  li:hover ul {display: block; position: absolute;}
+  li:hover li {float: none;}
+  li:hover a {background: #f00;}
+  li:hover li a:hover {background: #000;}
+  #drop-nav li ul li {border-top: 0px;}
+  vertical-align: top;
+</style>
+</head>
+	</head>
+	<body>
+		<a href="#openModal">Take Survey</a>
+		<div id="openModal" class="modalDialog">
+					<div>
+				<a href="#close" title="Close" class="close">X</a>
+				<h3>Let's get to know you better.</h3>
+					<p>Where are you travelling from?</p>
+						<form class="search">
+                                <input name="search"type="text" placeholder="Airport Code" required>
+                                <button type="submit" class="btn">Find</button>
+						</form>
+					<p>Which country you want to travel to?</p>
+							<form class="search">
+                                <input name="search"type="text" placeholder="Country" required>
+                                <button type="submit" class="btn">Find Destination</button>
+							</form>
+					<p>What type of trips are you interested in?</p>
+						<select>
+						  <option value="volvo">Beach</option>
+						  <option value="saab">Disney</option>
+						  <option value="opel">Casino</option>
+						  <option value="audi">Mountains</option>
+						  <option value="audi">National Parks</option>
+						  <option value="audi">Outdoors</option>
+						  <option value="audi">Romance</option>
+						  <option value="audi">Shopping</option>
+						  <option value="audi">Skiing</option>
+						</select>
+					<p>When would you like to travel?</p>
+
+
+			</div>
+		</div>
+
+		</body
+	</html>
