@@ -16,7 +16,30 @@ angular.module('tripmakerApp')
       control: {}
     };
 
-    $scope.$watch('currentDay', function() {
+    $scope.$watch('currentDay', function(current, old) {
+      var map = $scope.map.control.getGMap();
+      _.forEach(old.pois, function(poi) {
+        if (poi.line) {
+          poi.line.setMap(null);
+        }
+        if (poi.marker) {
+          poi.marker.setMap(null);
+        }
+      });
+      _.forEach(current.pois, function(poi) {
+        if (poi.line) {
+          poi.line.setMap(map);
+        }
+        if (poi.marker) {
+          poi.marker.setMap(map);
+        }
+      });
+      if (current.pois.length > 0) {
+        $scope.map.center = {
+          latitude: current.pois[0].map_pos_lat,
+          longitude: current.pois[0].map_pos_lng
+        };
+      }
       $scope.updateDistances();
     });
 
