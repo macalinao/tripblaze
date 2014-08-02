@@ -26,3 +26,8 @@
   height: 600px;
   overflow-y: scroll;
 }
+
+#day {
+  border-bottom: 1px solid #cccccc;
+  padding-bottom: 10px;
+}
