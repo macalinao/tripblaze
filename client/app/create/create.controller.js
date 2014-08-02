@@ -1,12 +1,40 @@
 'use strict';
 
 angular.module('tripmakerApp')
-  .controller('CreateCtrl', function($scope, $http, $modal) {
+  .controller('CreateCtrl', function($scope, $http, $modal, $filter) {
     // Survey
     var survey = $modal.open({
       templateUrl: 'app/create/survey.html',
       controller: 'SurveyCtrl',
       size: 'md'
+    });
+
+    survey.result.then(function(res) {
+      function fmt(d) {
+        return $filter('date')(d, 'yyyy-MM-dd');
+      }
+
+      $http({
+        url: '/sabre/' + res.airport + '/' + res.type,
+        params: {
+          departureDate: fmt(res.departureDate),
+          returnDate: fmt(res.returnDate)
+        }
+      }).success(function(data) {
+        var flightSelect = $modal.open({
+          templateUrl: 'app/create/flights.html',
+          controller: 'FlightsCtrl',
+          size: 'md',
+          resolve: {
+            dests: function() {
+              return data.dests;
+            }
+          }
+        });
+        flightSelect.result.then(function(res) {
+          console.log(res);
+        });
+      });
     });
 
     $scope.settings = {

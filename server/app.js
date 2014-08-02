@@ -7,8 +7,10 @@
 // Set default node environment to development
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
+var async = require('async');
 var express = require('express');
 var mongoose = require('mongoose');
+var _ = require('lodash');
 var config = require('./config/environment');
 
 // Connect to database
@@ -47,6 +49,53 @@ app.get('/pois/:loc', function(req, res) {
           });
         });
     });
+});
+
+var SabreAPI = require('sabre-dev-studio');
+var sabre = new SabreAPI({
+  client_id: 'V1:i6ece78kp1s7ly4u:DEVCENTER:EXT',
+  client_secret: '1dhBKy9A',
+  uri: 'https://api.test.sabre.com'
+});
+
+app.get('/sabre_cats', function(req, res) {
+  sabre.get('/v1/shop/themes', {}, function(err, data) {
+    data = JSON.parse(data);
+    var ret = [];
+    _.forEach(data.Themes, function(theme) {
+      ret.push(theme.Theme);
+    });
+    res.json({
+      themes: ret
+    });
+  });
+});
+
+app.get('/sabre/:from/:theme', function(req, res) {
+  sabre.get('/v1/shop/flights/fares', {
+    origin: req.params.from.toUpperCase(),
+    theme: req.params.theme.toUpperCase(),
+    departuredate: req.query.departureDate,
+    returndate: req.query.returnDate
+  }, function(err, data) {
+    var locs = JSON.parse(data).FareInfo;
+    async.map(locs, function(loc, done) {
+      request('https://airport.api.aero/airport/match/' + loc.DestinationLocation)
+        .query({
+          user_key: '689b57a34d4f33f2e9144b34e608c07a'
+        })
+        .set('Accept', 'application/json')
+        .end(function(err, data) {
+          loc.dest = data.body.airports[0].city;
+          delete loc.Links;
+          done(err, loc);
+        });
+    }, function(err, ret) {
+      res.json({
+        dests: ret
+      });
+    });
+  });
 });
 
 app.route('/*')

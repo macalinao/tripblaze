@@ -12,12 +12,14 @@
     "express-session": "~1.0.2",
     "errorhandler": "~1.0.0",
     "compression": "~1.0.1",
-    "lodash": "~2.4.1",
+    "lodash": "^2.4.1",
     "ejs": "~0.8.4",
     "mongoose": "~3.8.8",
     "composable-middleware": "^0.3.0",
     "connect-mongo": "^0.4.1",
-    "superagent": "^0.18.2"
+    "superagent": "^0.18.2",
+    "sabre-dev-studio": "^1.0.1",
+    "async": "^0.9.0"
   },
   "devDependencies": {
     "grunt": "~0.4.4",

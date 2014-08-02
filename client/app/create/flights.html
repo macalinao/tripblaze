@@ -1,0 +1,18 @@
+<div class="modal-body">
+  <h3>Ok, we've found {{dests.length}} potential destinations for you.</h3>
+
+  <table class="table table-striped">
+    <tr>
+      <th>Destination</th>
+      <th>Round-trip price</th>
+      <th>Select</th>
+    </tr>
+    <tr ng-repeat="dest in dests | orderBy:'LowestFare'">
+      <td>{{dest.dest}}</td>
+      <td>{{dest.LowestFare | currency}}</td>
+      <td>
+        <button class="btn btn-primary">Go here</button>
+      </td>
+    </tr>
+  </table>
+</div>

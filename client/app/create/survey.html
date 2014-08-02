@@ -4,33 +4,25 @@
   <form role="form">
     <div class="form-group">
       <label for="airport">Where are you traveling from?</label>
-      <input name="airport" class="form-control" type="text" placeholder="Airport Code" required>
+      <input name="airport" ng-model="result.airport" class="form-control" type="text" placeholder="Airport Code" required>
     </div>
 
     <div class="form-group">
       <label for="destination">Which country you want to travel to?</label>
-      <input name="destination" class="form-control" type="text" placeholder="Country" required>
+      <input name="destination" ng-model="result.destination" class="form-control" type="text" placeholder="Country" required>
     </div>
 
     <div class="form-group">
       <label for="type">What type of trips are you interested in?</label>
-      <select name="type" class="form-control">
-        <option value="volvo">Beach</option>
-        <option value="saab">Disney</option>
-        <option value="opel">Casino</option>
-        <option value="audi">Mountains</option>
-        <option value="audi">National Parks</option>
-        <option value="audi">Outdoors</option>
-        <option value="audi">Romance</option>
-        <option value="audi">Shopping</option>
-        <option value="audi">Skiing</option>
+      <select ng-model="result.type" name="type" class="form-control">
+        <option ng-repeat="theme in themes" value="{{theme}}">{{theme}}</option>
       </select>
     </div>
 
     <div class="form-group">
       <label for="departureDate">Departure date</label>
       <p class="input-group">
-        <input type="text" class="form-control" name="departureDate" ng-model="departureDate" datepicker-popup="{{format}}" min-date="minDate" max-date="'2020-01-01'" datepicker-options="dateOptions" close-text="Close" is-open="opened['departureDate']" placeholder="Departure date"
+        <input type="text" class="form-control" name="departureDate" ng-model="result.departureDate" datepicker-popup="{{format}}" min-date="minDate" max-date="'2020-01-01'" datepicker-options="dateOptions" close-text="Close" is-open="opened['departureDate']" placeholder="Departure date"
         disabled />
         <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="openCal('departureDate', $event)"><i class="glyphicon glyphicon-calendar"></i></button>
@@ -41,7 +33,7 @@
     <div class="form-group">
       <label for="returnDate">Return date</label>
       <p class="input-group">
-        <input type="text" class="form-control" name="returnDate" ng-model="returnDate" datepicker-popup="{{format}}" min-date="minDate" max-date="'2020-01-01'" datepicker-options="dateOptions" close-text="Close" is-open="opened['returnDate']" placeholder="Return date"
+        <input type="text" class="form-control" name="returnDate" ng-model="result.returnDate" datepicker-popup="{{format}}" min-date="minDate" max-date="'2020-01-01'" datepicker-options="dateOptions" close-text="Close" is-open="opened['returnDate']" placeholder="Return date"
         disabled />
         <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="openCal('returnDate', $event)"><i class="glyphicon glyphicon-calendar"></i></button>
@@ -50,6 +42,6 @@
     </div>
 
 
-    <button class="btn btn-primary">Make my trip!</button>
+    <button class="btn btn-primary" ng-click="submit()">Make my trip!</button>
   </form>
 </div>
