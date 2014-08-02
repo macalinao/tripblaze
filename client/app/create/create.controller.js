@@ -1,7 +1,14 @@
 'use strict';
 
 angular.module('tripmakerApp')
-  .controller('CreateCtrl', function($scope, $http) {
+  .controller('CreateCtrl', function($scope, $http, $modal) {
+    // Survey
+    var survey = $modal.open({
+      templateUrl: 'app/create/survey.html',
+      controller: 'SurveyCtrl',
+      size: 'md'
+    });
+
     $scope.settings = {
       destination: 'philadelphia',
       days: 9

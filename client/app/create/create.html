@@ -16,7 +16,8 @@
           <h3>{{poi.name}}</h3>
           <img ng-src="{{poi.img}}" />
           <p>{{poi.perex}}</p>
-          <p ng-if="poi.dist >= 0"><strong>{{poi.dist}} miles away from {{getLastPoi().name}}</strong></p>
+          <p ng-if="poi.dist >= 0"><strong>{{poi.dist}} miles away from {{getLastPoi().name}}</strong>
+          </p>
         </div>
       </div>
     </div>
@@ -39,4 +40,6 @@
       </div>
     </div>
   </div>
+
+
 </div>
