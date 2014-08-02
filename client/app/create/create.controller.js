@@ -11,7 +11,7 @@ angular.module('tripmakerApp')
         latitude: 45,
         longitude: -73
       },
-      zoom: 10,
+      zoom: 15,
       control: {}
     };
 
@@ -73,6 +73,35 @@ angular.module('tripmakerApp')
       _.forEach($scope.pois, function(poi) {
         poi.dist = getDistanceFromLatLon(poi.map_pos_lat, poi.map_pos_lng, lastPoi.map_pos_lat, lastPoi.map_pos_lng).toFixed(1);
       });
+
+      var lowest = 1000;
+      _.forEach($scope.getCurPois(), function(poi) {
+        if (poi === lastPoi) {
+          return;
+        }
+        poi.dist = getDistanceFromLatLon(poi.map_pos_lat, poi.map_pos_lng, lastPoi.map_pos_lat, lastPoi.map_pos_lng).toFixed(1);
+        lowest = Math.min(poi.dist, lowest);
+      });
+
+      if (lowest === 1000) {
+        return;
+      }
+
+      if (lowest < 0.5) {
+        $scope.map.zoom = 17;
+      } else if (lowest < 1) {
+        $scope.map.zoom = 16;
+      } else if (lowest < 2) {
+        $scope.map.zoom = 15;
+      } else if (lowest < 4) {
+        $scope.map.zoom = 14;
+      } else if (lowest < 8) {
+        $scope.map.zoom = 13;
+      } else if (lowest < 11) {
+        $scope.map.zoom = 12;
+      } else {
+        $scope.map.zoom = 11;
+      }
     };
 
     $scope.addCurrentDay = function(data, event) {
@@ -87,13 +116,17 @@ angular.module('tripmakerApp')
         $scope.pois.splice(poiIndex, 1);
       }
 
+      $scope.map.center = {
+        latitude: data.map_pos_lat,
+        longitude: data.map_pos_lng
+      };
+
       var map = $scope.map.control.getGMap();
       var latLng = new google.maps.LatLng(data.map_pos_lat, data.map_pos_lng);
       var marker = new google.maps.Marker({
         position: latLng,
         map: map,
-        title: data.name,
-        icon: data.img
+        title: data.name
       });
       data.latLng = latLng;
 
