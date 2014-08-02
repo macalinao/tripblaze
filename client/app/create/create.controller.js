@@ -16,6 +16,10 @@ angular.module('tripmakerApp')
     };
 
     $scope.currentDay = 1;
+    $scope.$watch('currentDay', function() {
+      $scope.updateDistances();
+    });
+
     $scope.itineraries = {};
     $scope.days = [1, 2, 3, 4, 5];
 
@@ -36,7 +40,7 @@ angular.module('tripmakerApp')
       var curPois = $scope.getCurPois();
       if (!curPois || curPois.length === 0) {
         _.forEach($scope.pois, function(poi) {
-          poi.dist = 0;
+          poi.dist = -1;
         });
         return;
       }
@@ -45,6 +49,9 @@ angular.module('tripmakerApp')
 
     $scope.updateDistances = function() {
       var lastPoi = $scope.getLastPoi();
+      if (!lastPoi) {
+        return;
+      }
 
       function getDistanceFromLatLon(lat1, lon1, lat2, lon2) {
         var R = 6371; // Radius of the earth in km
