@@ -4,7 +4,7 @@ angular.module('tripmakerApp')
   .controller('CreateCtrl', function($scope, $http) {
     $scope.settings = {
       destination: 'philadelphia',
-      days: 5
+      days: 9
     };
 
     $scope.map = {
@@ -30,20 +30,12 @@ angular.module('tripmakerApp')
 
     $scope.pois = [];
 
-    $scope.getLastPoi = function() {
-      var curPois = $scope.currentDay.pois;
-      if (!curPois || curPois.length === 0) {
+    $scope.updateDistances = function() {
+      var lastPoi = $scope.currentDay.pois[0];
+      if (!lastPoi) {
         _.forEach($scope.pois, function(poi) {
           poi.dist = -1;
         });
-        return;
-      }
-      return curPois[curPois.length - 1];
-    };
-
-    $scope.updateDistances = function() {
-      var lastPoi = $scope.getLastPoi();
-      if (!lastPoi) {
         return;
       }
 
