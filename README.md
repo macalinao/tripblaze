@@ -20,3 +20,10 @@ returndatetime
 What we can find out from the information
 -------------------------------------------
 We use the Fareinfo and the LowestFare to find out trips that are at a low cost along with the LowestNonStopFare if the user wants. The airports are provided through a json file that the Sabre API generates.
+
+API's We're Using
+-------------------
+*Sabre API: DestinationFinder API (supplemental API's: TravelFromLookUp)
+*GoogleMaps API
+*PointsOfInterest API (composed of Tripomatic API & Google GeoCoding API)
+*Yelp API
