@@ -53,8 +53,15 @@ angular.module('tripmakerApp')
 
     $scope.pois = [];
 
+    $scope.getLastPoi = function() {
+      if ($scope.currentDay.pois.length > 0) {
+        return $scope.currentDay.pois[$scope.currentDay.pois.length - 1];
+      }
+      return null;
+    };
+
     $scope.updateDistances = function() {
-      var lastPoi = $scope.currentDay.pois[0];
+      var lastPoi = $scope.getLastPoi();
       if (!lastPoi) {
         _.forEach($scope.pois, function(poi) {
           poi.dist = -1;
