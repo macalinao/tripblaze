@@ -32,7 +32,7 @@ angular.module('tripmakerApp')
       return curPois;
     };
 
-    $scope.updateDistances = function() {
+    $scope.getLastPoi = function() {
       var curPois = $scope.getCurPois();
       if (!curPois || curPois.length === 0) {
         _.forEach($scope.pois, function(poi) {
@@ -40,7 +40,11 @@ angular.module('tripmakerApp')
         });
         return;
       }
-      var lastPoi = curPois[curPois.length - 1];
+      return curPois[curPois.length - 1];
+    };
+
+    $scope.updateDistances = function() {
+      var lastPoi = $scope.getLastPoi();
 
       function getDistanceFromLatLon(lat1, lon1, lat2, lon2) {
         var R = 6371; // Radius of the earth in km
@@ -60,7 +64,7 @@ angular.module('tripmakerApp')
       }
 
       _.forEach($scope.pois, function(poi) {
-        poi.dist = getDistanceFromLatLon(poi.map_pos_lat, poi.map_pos_lng, lastPoi.map_pos_lat, lastPoi.map_pos_lng);
+        poi.dist = getDistanceFromLatLon(poi.map_pos_lat, poi.map_pos_lng, lastPoi.map_pos_lat, lastPoi.map_pos_lng).toFixed(1);
       });
     };
 
