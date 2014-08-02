@@ -14,15 +14,20 @@
       <div id="poiSelect">
         <div class="poi-sidebar" ng-repeat="poi in pois | filter:findText">
           <h3>{{poi.name}}</h3>
-          <img ng-src="{{poi.img}}">
-            <small><rating ng-model="poi.rating" readonly="true"></rating></small>
-          {{poi.perex}}
+          <img ng-src="{{poi.img}}" />
+          <p>{{poi.perex}}</p>
         </div>
       </div>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-6">
       <google-map center="map.center" zoom="map.zoom">
       </google-map>
+    </div>
+    <div class="col-md-3">
+      <div class="btn-group">
+        <button ng-repeat="dayNum in days" class="btn btn-primary" type="button" ng-model="$parent.currentDay" btn-radio="dayNum">{{dayNum}}</button>
+      </div>
+      <h2>Day {{currentDay}}</h2>
     </div>
   </div>
 </div>
