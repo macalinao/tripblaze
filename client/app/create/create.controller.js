@@ -34,7 +34,7 @@ angular.module('tripmakerApp')
       }
     };
 
-    $http.get('/pois/Orlando').then(function(data) {
+    $http.get('/pois/New York').then(function(data) {
       $scope.pois = data.data.pois;
       $scope.map.center.latitude = data.data.loc.lat;
       $scope.map.center.longitude = data.data.loc.lng;
