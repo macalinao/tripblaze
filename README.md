@@ -23,7 +23,7 @@ We use the Fareinfo and the LowestFare to find out trips that are at a low cost 
 
 API's We're Using
 -------------------
-*Sabre API: DestinationFinder API (supplemental API's: TravelFromLookUp)
-*GoogleMaps API
-*PointsOfInterest API (composed of Tripomatic API & Google GeoCoding API)
-*Yelp API
+* Sabre API: DestinationFinder API (supplemental API's: TravelFromLookUp)
+* GoogleMaps API
+* PointsOfInterest API (composed of Tripomatic API & Google GeoCoding API)
+* Yelp API
