@@ -11,7 +11,8 @@ angular.module('tripmakerApp')
         latitude: 45,
         longitude: -73
       },
-      zoom: 10
+      zoom: 10,
+      control: {}
     };
 
     $scope.currentDay = 1;
@@ -27,12 +28,38 @@ angular.module('tripmakerApp')
       var curPois = its[cur];
       if (!curPois) {
         curPois = its[cur] = [];
+      } else {
+        var lastPoi = curPois[curPois.length - 1];
       }
       curPois.push(data);
 
       var poiIndex = $scope.pois.indexOf(data);
       if (poiIndex > -1) {
         $scope.pois.splice(poiIndex, 1);
+      }
+
+      var map = $scope.map.control.getGMap();
+      var latLng = new google.maps.LatLng(data.map_pos_lat, data.map_pos_lng);
+      var marker = new google.maps.Marker({
+        position: latLng,
+        map: map,
+        title: data.name,
+        icon: data.img
+      });
+      data.latLng = latLng;
+
+      if (lastPoi) {
+        new google.maps.Polyline({
+          path: [
+            lastPoi.latLng,
+            latLng
+          ],
+          geodesic: true,
+          strokeColor: '#ff0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2,
+          map: map
+        });
       }
     };
 
