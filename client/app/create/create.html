@@ -26,16 +26,24 @@
       </google-map>
     </div>
     <div class="col-md-3">
-      <strong>Select a day: </strong>
+      <h2 class="small-head">Day {{currentDay.id}}</h2>
       <div class="btn-group">
         <button ng-repeat="day in days" class="btn btn-primary" type="button" ng-model="$parent.currentDay" btn-radio="day">{{day.id}}</button>
       </div>
-      <h2 id="day">Day {{currentDay.id}}</h2>
       <div class="dayItinerary" ng-drop="true" ng-drop-success="addCurrentDay($data, $event)">
         <div class="poi" ng-repeat="poi in currentDay.pois">
           <h3>{{poi.name}}</h3>
           <img ng-src="{{poi.img}}" />
           <p>{{poi.perex}}</p>
+        </div>
+      </div>
+
+      <div id="flightView">
+        <h2 class="small-head">Flight</h2>
+        <div ng-repeat="flight in settings.flight.flight">
+          <h4>{{flight.DepartureAirport.LocationCode}} to {{flight.ArrivalAirport.LocationCode}} ({{flight.MarketingAirline.Code}} Airlines)</h4>
+          <p><span class="label label-danger">Depart</span> {{flight.DepartureDateTime | date:'medium' }}</p>
+          <p><span class="label label-success">Arrive</span> {{flight.ArrivalDateTime | date:'medium' }}</p>
         </div>
       </div>
     </div>

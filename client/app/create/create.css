@@ -23,11 +23,15 @@
 }
 
 .dayItinerary {
-  height: 550px;
+  height: 300px;
   overflow-y: scroll;
 }
 
-#day {
+#flightView {
+  height: 150px;
+}
+
+.small-head {
   border-bottom: 1px solid #cccccc;
   padding-bottom: 10px;
 }

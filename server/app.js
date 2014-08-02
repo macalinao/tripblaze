@@ -95,8 +95,22 @@ app.get('/sabre/:from/:theme', function(req, res) {
         .set('Accept', 'application/json')
         .end(function(err, data) {
           loc.dest = data.body.airports[0].city;
-          delete loc.Links;
-          done(err, loc);
+          sabre.get('/v1/shop/flights', {
+            origin: req.params.from.toUpperCase(),
+            destination: loc.DestinationLocation,
+            departuredate: req.query.departureDate,
+            returndate: req.query.returnDate
+          }, function(err, flightData) {
+            try {
+              flightData = JSON.parse(flightData);
+            } catch (e) {
+              return;
+            }
+            loc.flight = _.map(flightData.PricedItineraries[0].AirItinerary.OriginDestinationOptions.OriginDestinationOption, function(seg) {
+              return seg.FlightSegment[0];
+            });
+            done(err, loc);
+          });
         });
     }, function(err, ret) {
       res.json({

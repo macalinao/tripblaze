@@ -44,7 +44,8 @@ angular.module('tripmakerApp')
 
               // Round down.
               return Math.floor(days);
-            })()
+            })(),
+            flight: rez
           };
         });
       });
