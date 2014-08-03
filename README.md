@@ -2,6 +2,8 @@ Trip-Maker
 =========
 It’s a travel website for planning your itinerary. By answering a small survey it will also be able to recommend places based on your preferences as well as the top rated places on TripAdvisor.
 
+This app won 1st place at the [2014 Sabre Dev Studio Hackathon](https://developer.sabre.com/about/events/hackathon_2014) in Southlake, TX. We won $6000 total for this app!
+
 Survey
 --------
 After taking the survey we use a list of commands from the Sabre Api to meet the needs of the user to find the cheapest and best flight according to the users needs
